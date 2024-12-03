@@ -159,4 +159,19 @@ const observer = new IntersectionObserver((entries) => {
     });
 });
 sections.forEach(section => observer.observe(section));
+function copyCode() {
+    const code = document.getElementById("codeSnippet").innerText; // Get code text
+    navigator.clipboard.writeText(code).then(() => {
+        alert("Code copied to clipboard!"); // Notify the user
+    }).catch(err => {
+        console.error("Failed to copy code: ", err);
+    });
+}
 
+// Download diagram button functionality
+document.getElementById("downloadDiagram").addEventListener("click", function () {
+    const link = document.createElement("a");
+    link.href = "codediagram.jpg"; // Path to the diagram file
+    link.download = "codediagram.jpg"; // Name of the downloaded file
+    link.click();
+});

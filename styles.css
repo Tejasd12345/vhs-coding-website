@@ -57,20 +57,21 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.project-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, filter 0.3s ease;
-    filter: grayscale(100%);
-}
 
-.project-image:hover {
-    transform: scale(1.05);
-    filter: grayscale(0%);
-}
-
+    .project-image {
+        max-width: 80%; /* Reduce the maximum width */
+        max-height: 400px; /* Limit the height */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: grayscale(100%);
+    }
+    
+    .project-image:hover {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+    }
 
 
 /* Section Animation */
@@ -375,6 +376,13 @@ body {
     justify-content: center;
 }
 
+.diagram-block {
+    flex: 1 1 400px;
+    text-align: center;
+}
+
+
+
 .code-block {
     flex: 1 1 400px;
     max-width: 600px;
@@ -388,9 +396,66 @@ body {
     text-align: left; /* Align text for code readability */
 }
 
-.diagram-block {
-    flex: 1 1 400px;
-    text-align: center;
+.copy-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff; /* Blue background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.copy-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+
+/* Responsive adjustments with minimal changes */
+
+/* Mobile-first styling is already strong; adding only key breakpoints */
+
+/* Base adjustments for better fit */
+.card {
+    max-width: 90%; /* Adjust cards for smaller screens */
+}
+
+.menu-button {
+    top: 10px;
+    left: 10px;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+
+
+/* Styling for the Download Button */
+#downloadDiagram {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0ff;
+    background-color: #121212;
+    border: 2px solid #0ff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #0ff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#downloadDiagram:hover {
+    background-color: #0ff;
+    color: #121212;
+    transform: scale(1.1);
+}
+
+
+
+
 
 

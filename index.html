@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Project Website</title>
+    <title>Vhs robotics</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,15 +16,16 @@
     <!-- Hidden Side Menu -->
     <nav id="sideMenu" class="side-menu">
         <ul>
-            <li><a href="#coding-project" class="menu-link">Our Coding Project</a></li>
+            <li><a href="#coding-project" class="menu-link">Vhs robotics project</a></li>
             <li><a href="#team" class="menu-link">Team Members</a></li>
             <li><a href="#project" class="menu-link">About Project</a></li>
-            <li><a href="#code" class="menu-link">Code Of The project and diagram</a></li>
+            <li><a href="#code" class="menu-link">Code Of The project </a></li>
+            <li><a href="#diagram" class="menu-link">Diagram</a></li>
         </ul>
     </nav>
     <section id="coding-project" class="section full-width">
     <header class="full-width">
-        <h1 class="neon-text typing-text">Our Coding Project</h1>
+        <h1 class="neon-text typing-text">VHS ROBOTICS</h1>
     </header>
 </section>
     <section id="team" class="section full-width">
@@ -119,100 +120,105 @@
     </section>
 
     <section id="code" class="section full-width">
-        <h2 class="neon-subtitle">Code & Diagram</h2>
-        <div class="code-diagram-container">
-            <!-- Code Snippet -->
-            <div class="code-block">
-                <pre><code>
-                    #include <SPI.h>
-                        #include <MFRC522.h>
-                        #include <Servo.h>
-                        
-                        #define RST_PIN 9        
-                        #define SS_PIN 10        
-                        #define RELAY_PIN 7      
-                        #define BUZZER_PIN 5     
-                        #define SERVO_PIN 6      
-                        
-                        MFRC522 mfrc522(SS_PIN, RST_PIN);  
-                        Servo doorServo;                   
-                        
-                        byte authorizedUID[] = {0000,0000,999,99}; // Change your card uid here
-                        
-                        void setup() {
-                          Serial.begin(9600);
-                          SPI.begin();                      
-                          mfrc522.PCD_Init();               
-                          doorServo.attach(SERVO_PIN);      
-                          pinMode(RELAY_PIN, OUTPUT);       
-                          pinMode(BUZZER_PIN, OUTPUT);      
+      <h2 class="neon-subtitle">Code </h2>
+      <div class="code-diagram-container">
+          <!-- Code Block -->
+          <div class="code-block">
+              <button class="copy-button" onclick="copyCode()">Copy Code</button>
+              <pre><code id="codeSnippet">
+                #include <SPI.h>
+                    #include <MFRC522.h>
+                    #include <Servo.h>
+                    
+                    #define RST_PIN 9        
+                    #define SS_PIN 10        
+                    #define RELAY_PIN 7      
+                    #define BUZZER_PIN 5     
+                    #define SERVO_PIN 6      
+                    
+                    MFRC522 mfrc522(SS_PIN, RST_PIN);  
+                    Servo doorServo;                   
+                    
+                    byte authorizedUID[] = {0000,0000,999,99}; // Change your card uid here
+                    
+                    void setup() {
+                      Serial.begin(9600);
+                      SPI.begin();                      
+                      mfrc522.PCD_Init();               
+                      doorServo.attach(SERVO_PIN);      
+                      pinMode(RELAY_PIN, OUTPUT);       
+                      pinMode(BUZZER_PIN, OUTPUT);      
+                      
+                      Serial.println("Scan your RFID card.");
+                    }
+                    
+                    void loop() {
+                      
+                      if (mfrc522.PICC_IsNewCardPresent()) {
+                        if (mfrc522.PICC_ReadCardSerial()) {
+                          Serial.print("UID of card: ");
+                          String uidString = "";
                           
-                          Serial.println("Scan your RFID card.");
-                        }
-                        
-                        void loop() {
                           
-                          if (mfrc522.PICC_IsNewCardPresent()) {
-                            if (mfrc522.PICC_ReadCardSerial()) {
-                              Serial.print("UID of card: ");
-                              String uidString = "";
-                              
-                              
-                              for (byte i = 0; i < mfrc522.uid.size; i++) {
-                                uidString += String(mfrc522.uid.uidByte[i], HEX);
-                              }
-                              
-                              Serial.println(uidString);
-                              
-                              
-                              if (isAuthorized(uidString)) {
-                                Serial.println("Access Granted!");
-                                
-                                
-                                doorServo.write(110);
-                                delay(2000);  
-                                
-                                
-                                doorServo.write(0);
-                                
-                                
-                                digitalWrite(RELAY_PIN, HIGH);
-                                delay(1000);  
-                                digitalWrite(RELAY_PIN, LOW);
-                              } else {
-                                Serial.println("Access Denied!");
-                                
-                                
-                                digitalWrite(BUZZER_PIN, HIGH);
-                                delay(1000);  
-                                digitalWrite(BUZZER_PIN, LOW);
-                                delay(500);  
-                              }
-                            }
-                          }
-                        }
-                        
-                        bool isAuthorized(String uidString) {
-                          String authorizedString = "";
-                          
-                          for (byte i = 0; i < sizeof(authorizedUID); i++) {
-                            authorizedString += String(authorizedUID[i], HEX);
+                          for (byte i = 0; i < mfrc522.uid.size; i++) {
+                            uidString += String(mfrc522.uid.uidByte[i], HEX);
                           }
                           
-                          return (uidString.equalsIgnoreCase(authorizedString));
+                          Serial.println(uidString);
+                          
+                          
+                          if (isAuthorized(uidString)) {
+                            Serial.println("Access Granted!");
+                            
+                            
+                            doorServo.write(110);
+                            delay(2000);  
+                            
+                            
+                            doorServo.write(0);
+                            
+                            
+                            digitalWrite(RELAY_PIN, HIGH);
+                            delay(1000);  
+                            digitalWrite(RELAY_PIN, LOW);
+                          } else {
+                            Serial.println("Access Denied!");
+                            
+                            
+                            digitalWrite(BUZZER_PIN, HIGH);
+                            delay(1000);  
+                            digitalWrite(BUZZER_PIN, LOW);
+                            delay(500);  
+                          }
                         }
-                        
-                </code></pre>
-            </div>
-            <!-- Diagram -->
-            <div class="diagram-block">
-                <img src="codediagram.jpg" alt="Project Diagram" class="project-image">
-            </div>
+                      }
+                    }
+                    
+                    bool isAuthorized(String uidString) {
+                      String authorizedString = "";
+                      
+                      for (byte i = 0; i < sizeof(authorizedUID); i++) {
+                        authorizedString += String(authorizedUID[i], HEX);
+                      }
+                      
+                      return (uidString.equalsIgnoreCase(authorizedString));
+                    }
+                       
+   
+              </code></pre>
+          </div>
+          </div>
+          </section>
+          <section id="diagram" class="section full-width"></section>
+          <!-- Diagram -->
+          <button id="downloadDiagram" class="neon-button">Download Diagram</button>
+          <div class="diagram-block">
+          
+            <img src="codediagram.jpg" alt="Project Diagram" class="project-image">
+            
         </div>
-    </section>
-
-
-
+    </div>
+</section>
     <!-- JavaScript Files -->
     <script src="particles.min.js"></script>
     <script src="script.js"></script>
